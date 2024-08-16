@@ -67,7 +67,7 @@ function jsf_sbtax_taxonomy_slug_render() {
     $options = get_option( 'jsf_sbtax_settings' );
     $taxonomy_slug = isset( $options['jsf_sbtax_taxonomy_slug'] ) ? $options['jsf_sbtax_taxonomy_slug'] : '';
     ?>
-    <input type='text' name='jsf_sbtax_settings[jsf_sbtax_taxonomy_slug]' value='<?php echo esc_attr( $taxonomy_slug ); ?>'>
+    <input type='text' class="regular-text" name='jsf_sbtax_settings[jsf_sbtax_taxonomy_slug]' value='<?php echo esc_attr( $taxonomy_slug ); ?>'>
     <p class="description"><?php _e( 'Enter custom taxonomy slugs separated by commas (e.g., taxonomy1,taxonomy2).', 'jsf_sbtax' ); ?></p>
     <?php
 }
@@ -76,7 +76,7 @@ function jsf_sbtax_meta_keys_render() {
     $options = get_option( 'jsf_sbtax_settings' );
     $meta_keys = isset( $options['jsf_sbtax_meta_keys'] ) ? $options['jsf_sbtax_meta_keys'] : '';
     ?>
-    <input type='text' name='jsf_sbtax_settings[jsf_sbtax_meta_keys]' value='<?php echo esc_attr( $meta_keys ); ?>'>
+    <input type='text' class="regular-text" name='jsf_sbtax_settings[jsf_sbtax_meta_keys]' value='<?php echo esc_attr( $meta_keys ); ?>'>
     <p class="description"><?php _e( 'Enter custom meta keys separated by commas (e.g., meta_key1,meta_key2).', 'jsf_sbtax' ); ?></p>
     <?php
 }
