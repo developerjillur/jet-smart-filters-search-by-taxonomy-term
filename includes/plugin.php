@@ -89,7 +89,11 @@ class Plugin {
             $taxonomy_slugs = isset( $options['jsf_sbtax_taxonomy_slug'] ) ? $options['jsf_sbtax_taxonomy_slug'] : '';
             $taxonomy_slugs = array_map( 'sanitize_text_field', explode( ',', $taxonomy_slugs ) );
         
+            $meta_keys = isset( $options['jsf_sbtax_meta_keys'] ) ? $options['jsf_sbtax_meta_keys'] : '';
+            $meta_keys = array_map( 'sanitize_text_field', explode( ',', $meta_keys ) );
+        
             $taxonomy_queries = [];
+            $meta_queries = [];
         
             foreach ( $taxonomy_slugs as $taxonomy ) {
                 $taxonomy = trim( $taxonomy );
@@ -110,8 +114,27 @@ class Plugin {
                 }
             }
         
-            if ( ! empty( $taxonomy_queries ) ) {
-                $where .= " OR (" . implode( ' OR ', $taxonomy_queries ) . ")";
+            foreach ( $meta_keys as $meta_key ) {
+                $meta_key = trim( $meta_key );
+                if ( ! empty( $meta_key ) ) {
+                    $meta_queries[] = $wpdb->prepare(
+                        " EXISTS (
+                            SELECT 1
+                            FROM $wpdb->postmeta AS pm
+                            WHERE pm.post_id = {$wpdb->posts}.ID
+                            AND pm.meta_key = %s
+                            AND pm.meta_value LIKE %s
+                        )",
+                        $meta_key,
+                        '%' . $wpdb->esc_like( $this->search_query ) . '%'
+                    );
+                }
+            }
+        
+            $queries = array_merge( $taxonomy_queries, $meta_queries );
+        
+            if ( ! empty( $queries ) ) {
+                $where .= " OR (" . implode( ' OR ', $queries ) . ")";
             }
         
             $this->search_query = null;
