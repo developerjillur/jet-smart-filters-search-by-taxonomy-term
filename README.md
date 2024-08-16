@@ -1,6 +1,4 @@
-## Added Meta Fields Support V2.0
-
-## Whats News? 
+## What's New? 
 This Plugin extends JetSmartFilters to search by custom taxonomy term names & meta fields data, It allows the ability on smart search fields to search in Post/CPT/Listing Content by category, post_tag,  custom_taxonomy & meta fields data for the Search filter
 
 Have the option to provide one or multiple taxonomy slugs under Setting->JSF Taxonomy Search.
